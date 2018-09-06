@@ -12,7 +12,7 @@ The goal of this project is pretty simple; Take the general functionality of you
 
 This is what I came up with:
 
-![kxmx_ruitar - Whole - Detail]()
+![kxmx_ruitar - Complete - Detail](docs/img/kxmx_ruitar_complete.jpg)
 
 I like the form factor of a guitar because it can look quite traditional in a rock band context, but upon closer inspection is clearly not.  This reflects my taste in music, superficially recognizable, but substatially deviant.  While I can play the guitar, I didn't feel it necessary that a functional guitar be augmented with MIDI controller capabilities, primarially because my single-threaded brain just cannot effectively handle playing an instrument well, while controlling other parameters. 
 
@@ -24,29 +24,23 @@ The project is split into two sections, body and head.
 
 ## [The Body](https://github.com/recursinging/kxmx_ruitar/tree/master/ruitar-body)
 
-![kxmx_ruitar - Body - Detail]()
+![kxmx_ruitar - Body - Detail](docs/img/kxmx_ruitar_body_detail.jpg)
 
 The ruitar-body is the core of the instrument, effectively a variety of sensors attached to a microcontroller (a [Teensy 3.6](https://www.pjrc.com/store/teensy36.html)) which converts the sensor data into MIDI and OSC messages. The following sensors are implemented and working:
 
 * 4 500mm [ThinPot](http://www.spectrasymbol.com/product/thinpot/) Membrane Potentiometers (Strings)
 
-![kxmx_ruitar - Body - Detail Strings]()
+![kxmx_ruitar - Body - Detail Strings](docs/img/kxmx_ruitar_strings_detail.jpg)
 
 * 4 38x38mm [FSR](https://www.interlinkelectronics.com/fsr-406) Pressure Sensors (Pads)
-
-![kxmx_ruitar - Body - Detail Pads]()
-
-* 4 45mm [Slider Potentiometers](https://www.digikey.com/product-detail/en/tt-electronics-bi/PS45-21PC3BR10K/987-1409-ND/2620678) (Faders)
-
-![kxmx_ruitar - Body - Detail Faders]()
-
-* 4 [LED Buttons](https://www.sparkfun.com/products/10442) (Toggles)
-
-![kxmx_ruitar - Body - Detail Toggles]()
-
 * 1 [Joystick](https://www.adafruit.com/product/444)
 
-![kxmx_ruitar - Body - Detail Joystick]()
+![kxmx_ruitar - Body - Detail Pads and Joystick](docs/img/kxmx_ruitar_pads_joystick_detail.jpg)
+
+* 4 45mm [Slider Potentiometers](https://www.digikey.com/product-detail/en/tt-electronics-bi/PS45-21PC3BR10K/987-1409-ND/2620678) (Faders)
+* 4 [LED Buttons](https://www.sparkfun.com/products/10442) (Toggles)
+
+![kxmx_ruitar - Body - Detail Faders and Toggles](docs/img/kxmx_ruitar_body_module_detail.jpg)
 
 These sensors are sampled via the microcontroller ADCs, the values are calculated and, if appropriate, MIDI and OSC messages are sent out. (currently via USB to a PC).
 
@@ -54,19 +48,19 @@ The logic controlling when and what messages to send is configurable by a INI st
 
 There is an SSD1306 64x32 OLED display mounted to the body of the guitar.  
 
-![kxmx_ruitar - Body - Detail OLED]()
+![kxmx_ruitar - Body - Detail OLED](docs/img/kxmx_ruitar_oled_detail.jpg)
 
 I had plans to make presets configurable through this display, but I found the OSC GUI much easier and more powerful, so this display is currently relegated to display some basic debugging info at the moment.  Perhaps there is a better use for it, or the SPI pins it is occupying?
 
 Presets can also be edited via OSC using [the GUI definition](https://github.com/recursinging/kxmx_ruitar/blob/master/osc-gui.json) for [Open Stage Control](https://osc.ammd.net/)
 
-![kxmx_ruitar - Body - Detail GUI]()
+![kxmx_ruitar - Body - Detail GUI](docs/img/kxmx_ruitar_gui_detail.jpg)
 
 The default configuration is for it to behave a bit like a real guitar. Pressing a position on a "string" (0-3) determines the pitch of the note, while triggering the note on state, and its velocity is determined by pressure detected at the associated (0-3) "pad".  The faders, and toggles emit CC messages, and the joystick can emit CC and pitch bend messages. Sensor values recieved from the head (accellerometer, encoders) can also be configured to emit MIDI CC messages.
 
 ## [The Head](https://github.com/recursinging/kxmx_ruitar/tree/master/ruitar-head)
 
-![kxmx_ruitar - Head - Detail]()
+![kxmx_ruitar - Head - Detail](docs/img/kxmx_ruitar_head_detail.jpg)
 
 The ruitar-head is set of sensors attached to a microcontroller ([Teensy LC](https://www.pjrc.com/teensy/teensyLC.html)) acting as an I²C slave device.  It is attached to the headstock of a guitar. I've connected it to the body module with wires pulled through the neck of the guitar.  I removed all the tuning hardware and screwed it directly to the headstock.
 
