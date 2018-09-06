@@ -54,7 +54,7 @@ I had plans to make presets configurable through this display, but I found the O
 
 Presets can also be edited via OSC using [the GUI definition](https://github.com/recursinging/kxmx_ruitar/blob/master/osc-gui.json) for [Open Stage Control](https://osc.ammd.net/)
 
-![kxmx_ruitar - Body - Detail GUI](docs/img/kxmx_ruitar_gui_detail.jpg)
+![kxmx_ruitar - Body - Detail GUI](docs/img/kxmx_ruitar_gui_detail.png)
 
 The default configuration is for it to behave a bit like a real guitar. Pressing a position on a "string" (0-3) determines the pitch of the note, while triggering the note on state, and its velocity is determined by pressure detected at the associated (0-3) "pad".  The faders, and toggles emit CC messages, and the joystick can emit CC and pitch bend messages. Sensor values recieved from the head (accellerometer, encoders) can also be configured to emit MIDI CC messages.
 
