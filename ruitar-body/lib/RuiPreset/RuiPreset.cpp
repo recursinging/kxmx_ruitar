@@ -60,11 +60,11 @@
   ConfigMeta RuiPresetClass::STRINGS_META[] = {
       {RuiPresetClass::strings.string_mode, 0, "string_mode", STRING_MODE, {2,2,2,2}},
       {RuiPresetClass::strings.channel, 0, "channel", CHAN,  {1,1,1,1}},
-      {RuiPresetClass::strings.play_open, 0, "play_open", BOOL, {1,1,1,0}},
+      {RuiPresetClass::strings.play_open, 0, "play_open", BOOL, {1,1,1,1}},
       {RuiPresetClass::strings.lowest_note, 0, "lowest_note", NOTE, {40,45,50,55}},
       {RuiPresetClass::strings.highest_note, 0, "highest_note", NOTE, {60,65,70,75}},
       {RuiPresetClass::strings.cc_channel, 0, "cc_channel", CHAN, {0,0,0,0}},
-      {RuiPresetClass::strings.cc_number, 0, "cc_number", CC, 1,1,1,30},
+      {RuiPresetClass::strings.cc_number, 0, "cc_number", CC, 1,1,1,1},
       {RuiPresetClass::strings.lowest_cc_value, 0, "lowest_cc_value", SBYTE, {0,0,0,0}},
       {RuiPresetClass::strings.highest_cc_value, 0, "highest_cc_value", SBYTE, {127,127,127,11}},
       {RuiPresetClass::strings.initial_cc_value, 0, "initial_cc_value", SBYTE, {0,0,0,0}},
@@ -72,16 +72,16 @@
   };
 
   ConfigMeta RuiPresetClass::PADS_META[] = {
-      {RuiPresetClass::pads.pad_mode, 1, "pad_mode", PAD_MODE, {1,1,1,3}},
+      {RuiPresetClass::pads.pad_mode, 1, "pad_mode", PAD_MODE, {1,1,1,1}},
       {RuiPresetClass::pads.channel, 1, "channel", CHAN, {1,1,1,1}},
       {RuiPresetClass::pads.fixed_mode_note, 1, "fixed_mode_note", NOTE, {40,40,40,40}},
-      {RuiPresetClass::pads.external_mode_channel, 1, "external_mode_channel", CHAN, {0,0,0,2}},
+      {RuiPresetClass::pads.external_mode_channel, 1, "external_mode_channel", CHAN, {0,0,0,0}},
       {RuiPresetClass::pads.external_mode_note, 1, "external_mode_note", NOTE, {36,36,36,36}},
       {RuiPresetClass::pads.send_aftertouch, 1, "send_aftertouch", BOOL, {0,0,0,0}},
-      {RuiPresetClass::pads.cc_channel, 1, "cc_channel", CHAN, {0,0,0,1}},
-      {RuiPresetClass::pads.cc_number, 1, "cc_number", CC, 1,1,1,48},
+      {RuiPresetClass::pads.cc_channel, 1, "cc_channel", CHAN, {0,0,0,0}},
+      {RuiPresetClass::pads.cc_number, 1, "cc_number", CC, 1,1,1,1},
       {RuiPresetClass::pads.lowest_cc_value, 1, "lowest_cc_value", SBYTE, {0,0,0,0}},
-      {RuiPresetClass::pads.highest_cc_value, 1, "highest_cc_value", SBYTE, {127,127,127,5}},
+      {RuiPresetClass::pads.highest_cc_value, 1, "highest_cc_value", SBYTE, {127,127,127,127}},
       {RuiPresetClass::pads.initial_cc_value, 1, "initial_cc_value", SBYTE, {0,0,0,0}},
       {RuiPresetClass::pads.cc_value_step, 1, "cc_value_step", SBYTE, {1,1,1,1}}
   };
@@ -103,7 +103,7 @@
       {RuiPresetClass::faders.lowest_note, 3, "lowest_note", NOTE, {64,64,64,64}},
       {RuiPresetClass::faders.highest_note, 3, "highest_note", NOTE, {84,84,84,84}},
       {RuiPresetClass::faders.cc_channel, 3, "cc_channel", CC, {1,1,1,1}},
-      {RuiPresetClass::faders.cc_number, 3, "cc_number", CC, {91,62,90,12}},
+      {RuiPresetClass::faders.cc_number, 3, "cc_number", CC, {91,62,105,12}},
       {RuiPresetClass::faders.lowest_cc_value, 3, "lowest_cc_value", SBYTE, {0,0,0,0}},
       {RuiPresetClass::faders.highest_cc_value, 3, "highest_cc_value", SBYTE, {127,127,127,127}},
       {RuiPresetClass::faders.initial_cc_value, 3, "initial_cc_value", SBYTE, {0,0,0,0}},
@@ -114,7 +114,7 @@
       {RuiPresetClass::toggles.toggle_mode, 4, "toggle_mode", TOGGLE_MODE, {1,1,1,1}},
       {RuiPresetClass::toggles.channel, 4, "channel", CHAN, {1,1,1,1}},
       {RuiPresetClass::toggles.cc_channel, 4, "cc_channel", CC, {1,1,1,1}},
-      {RuiPresetClass::toggles.cc_number, 4, "cc_number", CC, {112,117,116,110}},
+      {RuiPresetClass::toggles.cc_number, 4, "cc_number", CC, {107,116,104,111}},
       {RuiPresetClass::toggles.lowest_cc_value, 4, "lowest_cc_value", SBYTE, {0,0,0,0}},
       {RuiPresetClass::toggles.highest_cc_value, 4, "highest_cc_value", SBYTE, {127,127,127,127}},
       {RuiPresetClass::toggles.initial_cc_value, 4, "initial_cc_value", SBYTE, {0,0,0,0}}
