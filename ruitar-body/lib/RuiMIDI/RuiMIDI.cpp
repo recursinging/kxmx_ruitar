@@ -23,6 +23,38 @@ RuiMIDIAccel* RuiMIDIClass::accel = new RuiMIDIAccel();
 
 MIDIState RuiMIDIClass::state = MIDIState();
 
+void RuiMIDIClass::begin() {
+#if defined(USB_MIDI_SERIAL)
+  usbMIDI.setHandleNoteOn(handleNoteOn);
+  usbMIDI.setHandleNoteOff(handleNoteOff);
+#endif
+}
+
+void RuiMIDIClass::handleNoteOn(uint8_t channel, uint8_t note,
+                                uint8_t velocity) {
+  for (uint8_t s = 0; s < NN; s++) {
+    uint8_t extChan = RuiPreset.pads.external_mode_channel[s];
+    if (extChan > 0 && extChan == channel) {
+      if (RuiPreset.pads.external_mode_note[s] == note) {
+        state.extNoteOn[s] = 1;
+        state.extNoteVelocity[s] = velocity;
+      }
+    }
+  }
+}
+
+void RuiMIDIClass::handleNoteOff(byte channel, byte note, byte velocity) {
+  for (uint8_t s = 0; s < NN; s++) {
+    uint8_t extChan = RuiPreset.pads.external_mode_channel[s];
+    if (extChan > 0 && extChan == channel) {
+      if (RuiPreset.pads.external_mode_note[s] == note) {
+        state.extNoteOn[s] = 0;
+        state.extNoteVelocity[s] = 0;
+      }
+    }
+  }
+}
+
 void RuiMIDIClass::sendNoteOn(uint8_t note, uint8_t velocity, uint8_t channel) {
 #if defined(USB_MIDI_SERIAL)
   usbMIDI.sendNoteOn(note, velocity, channel);
@@ -154,17 +186,13 @@ void RuiMIDIClass::dispatch() {
       // Fixed Note Mode - Override the string note with the preset value
       newNote = RuiPreset.pads.fixed_mode_note[s];
     } else if (RuiPreset.pads.pad_mode[s] == 3) {
-      // External Trigger Mode - We supplement the pad triggering with MIDI
-      // input
-      uint8_t extChan = RuiPreset.pads.external_mode_channel[s];
-      if (extChan > 0) {
-        int8_t inputNote = state.inputNotes[extChan];
-        int8_t inputVel = state.inputVelocity[extChan];
-        if (RuiPreset.pads.external_mode_note[s] == inputNote) {
-          noteOn = inputVel > 0;
-          newNote = inputNote;
-          velocity = inputVel;
-        }
+      // External Trigger Mode - We supplement the pad triggering with MIDI input
+      if (state.extNoteOn[s] && pad->noteOn) {
+        noteOn = 1;
+        velocity = state.extNoteVelocity[s];
+      } else {
+        noteOn = 0;
+        velocity = 0;
       }
     }
 
@@ -226,7 +254,8 @@ void RuiMIDIClass::dispatch() {
     }
 
     // Handle Faders
-    if (RuiPreset.faders.fader_mode[s] == 4 && RuiPreset.faders.cc_channel[s] > 0 &&
+    if (RuiPreset.faders.fader_mode[s] == 4 &&
+        RuiPreset.faders.cc_channel[s] > 0 &&
         state.ccFaders[s] != fader->ccValue &&
         state.ccFaders[s] != fader->ccValue + 1 &&
         state.ccFaders[s] != fader->ccValue - 1) {

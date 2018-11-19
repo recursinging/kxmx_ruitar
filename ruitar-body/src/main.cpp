@@ -160,8 +160,10 @@ void setup() {
   RuiHead.begin();
   delay(100);
 
+  RuiMIDI.begin();
+
   // Serial.print("Setting up the synth...");
-  RuiSynth.begin();
+  //RuiSynth.begin();
   // Serial.println("OK");
 
 }

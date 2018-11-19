@@ -28,9 +28,8 @@ typedef struct MIDIStateStruct {
   int16_t joystickXPitchBend = 0;
   int16_t joystickYPitchBend = 0;
   int8_t pressurePads[NN] = {-1, -1, -1, -1};
-  int8_t inputNotes[16] = {-1, -1, -1, -1, -1, -1, -1, -1,
-                           -1, -1, -1, -1, -1, -1, -1};
-  int8_t inputVelocity[16] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+  int8_t extNoteOn[NN] = {0, 0, 0, 0};
+  int8_t extNoteVelocity[NN] = {0, 0, 0, 0};
 } MIDIState;
 
 class RuiMIDIClass {
@@ -44,6 +43,7 @@ class RuiMIDIClass {
   static RuiMIDIJoystick* joystick;
   static RuiMIDIAccel* accel;
   static MIDIState state;
+  static void begin();
   static void updatePresetConfig();
   static void update();
   static void dispatch();
@@ -54,6 +54,8 @@ class RuiMIDIClass {
   static void sendAfterTouchPoly(uint8_t note, uint8_t pressure,
                                  uint8_t channel);
   static void sendPitchBend(int value, uint8_t channel);
+  static void handleNoteOn(byte channel, byte note, byte velocity);
+  static void handleNoteOff(byte channel, byte note, byte velocity);
 };
 
 extern RuiMIDIClass RuiMIDI;
