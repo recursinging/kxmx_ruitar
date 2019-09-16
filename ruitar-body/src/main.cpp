@@ -4,9 +4,7 @@
 #include "RuiBody.h"
 #include "RuiHead.h"
 #include "RuiMIDI.h"
-#include "RuiOSC.h"
 #include "RuiPreset.h"
-#include "RuiSynth.h"
 
 #define MIDI_DEBUG 0
 #define SENSOR_DEBUG 0
@@ -120,7 +118,6 @@ bool configMode = false;
 bool on = true;
 
 void setup() {
-  AudioMemory(100);
 
   Serial.begin(1000000);
   delay(100);
@@ -155,10 +152,10 @@ void setup() {
   delay(100);
   // Serial.println("OK");
 
-  pinMode(PIN_HEAD_RESET, OUTPUT);
-  digitalWrite(PIN_HEAD_RESET, HIGH);
-  RuiHead.begin();
-  delay(100);
+  // pinMode(PIN_HEAD_RESET, OUTPUT);
+  // digitalWrite(PIN_HEAD_RESET, HIGH);
+  // RuiHead.begin();
+  // delay(100);
 
   RuiMIDI.begin();
 
@@ -174,9 +171,9 @@ void loop() {
   uint32_t iter_start = micros();
 
   // Update the head first...
-if (iter % 500 == 0) {
-  RuiHead.update();
-}
+// if (iter % 500 == 0) {
+//   RuiHead.update();
+// }
   
   if (RuiBody.sensorMode == PHY) {
     // Iterate over the iterables...
@@ -194,34 +191,34 @@ if (iter % 500 == 0) {
       toggles[s]->update();
       RuiBody.sensorsLast.togglesV[s] = RuiBody.sensors.togglesV[s];
       RuiBody.sensors.togglesV[s] = toggles[s]->read();
-      // ..and the head buttons...
-      RuiBody.sensorsLast.buttonsV[s] = RuiBody.sensors.buttonsV[s];
-      RuiBody.sensors.buttonsV[s] = RuiHead.button(s);
-      // ..and the head knobs.
-      RuiBody.sensorsLast.knobsV[s] = RuiBody.sensors.knobsV[s];
-      RuiBody.sensors.knobsV[s] = RuiHead.knob(s);
+      // // ..and the head buttons...
+      // RuiBody.sensorsLast.buttonsV[s] = RuiBody.sensors.buttonsV[s];
+      // RuiBody.sensors.buttonsV[s] = RuiHead.button(s);
+      // // ..and the head knobs.
+      // RuiBody.sensorsLast.knobsV[s] = RuiBody.sensors.knobsV[s];
+      // RuiBody.sensors.knobsV[s] = RuiHead.knob(s);
     }
-    // Now the non-iterables
-    // First read the X and Y joystick axis
-    RuiBody.sensorsLast.jsXv = RuiBody.sensors.jsXv;
-    RuiBody.sensors.jsXv = analogRead(PIN_JSX);
-    RuiBody.sensorsLast.jsYv = RuiBody.sensors.jsYv;
-    RuiBody.sensors.jsYv = analogRead(PIN_JSY);
+    // // Now the non-iterables
+    // // First read the X and Y joystick axis
+    // RuiBody.sensorsLast.jsXv = RuiBody.sensors.jsXv;
+    // RuiBody.sensors.jsXv = analogRead(PIN_JSX);
+    // RuiBody.sensorsLast.jsYv = RuiBody.sensors.jsYv;
+    // RuiBody.sensors.jsYv = analogRead(PIN_JSY);
 
-    // ...now the head accellerometer values
-    RuiBody.sensorsLast.accXv = RuiBody.sensors.accXv;
-    RuiBody.sensors.accXv = RuiHead.accelX();
-    RuiBody.sensorsLast.accYv = RuiBody.sensors.accYv;
-    RuiBody.sensors.accYv = RuiHead.accelY();
-    RuiBody.sensorsLast.accZv = RuiBody.sensors.accZv;
-    RuiBody.sensors.accZv = RuiHead.accelZ();
+    // // ...now the head accellerometer values
+    // RuiBody.sensorsLast.accXv = RuiBody.sensors.accXv;
+    // RuiBody.sensors.accXv = RuiHead.accelX();
+    // RuiBody.sensorsLast.accYv = RuiBody.sensors.accYv;
+    // RuiBody.sensors.accYv = RuiHead.accelY();
+    // RuiBody.sensorsLast.accZv = RuiBody.sensors.accZv;
+    // RuiBody.sensors.accZv = RuiHead.accelZ();
   }
 
-  if (configMode) {
-    // We're in config mode. Re-route the head knob and button values to the
-    // preset class
-    RuiPreset.update();
-  }
+  // if (configMode) {
+  //   // We're in config mode. Re-route the head knob and button values to the
+  //   // preset class
+  //   RuiPreset.update();
+  // }
 
   RuiMIDI.update();
   RuiMIDI.dispatch();
@@ -305,19 +302,7 @@ if (iter % 500 == 0) {
   _elapsed += elapsed;
   _rate++;
   if (_elapsed > 1000000) {
-    
-    Serial.print("AccelX: ");
-    Serial.println(RuiHead.accelX());
-        Serial.print("AccelY: ");
-    Serial.println(RuiHead.accelY());
-        Serial.print("AccelX: ");
-    Serial.println(RuiHead.accelZ());
-    
     RuiBody.performance.refreshRate = _rate;
-    RuiBody.performance.audioCpuUsage = AudioProcessorUsage();
-    RuiBody.performance.audioCpuUsageMax = AudioProcessorUsageMax();
-    RuiBody.performance.audioMemUsage = AudioMemoryUsage();
-    RuiBody.performance.audioMemUsageMax = AudioMemoryUsageMax();
     _elapsed = 0;
     _rate = 0;
   }

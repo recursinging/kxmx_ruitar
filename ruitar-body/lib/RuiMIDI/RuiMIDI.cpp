@@ -155,8 +155,8 @@ void RuiMIDIClass::update() {
     toggles[s]->update();
     knobs[s]->update();
   }
-  joystick->update();
-  accel->update();
+  // joystick->update();
+  // accel->update();
 }
 
 void RuiMIDIClass::dispatch() {
@@ -283,57 +283,57 @@ void RuiMIDIClass::dispatch() {
     }
 
     // Handle Joystick
-    if (RuiPreset.joystick.joystick_mode[s] > 0) {
-      if (RuiPreset.joystick.joystick_mode[s] == 1) {
-        // CC Mode
-        if (s == 0) {
-          if (joystick->ccXPlusValue != state.ccJoystick[s]) {
-            sendControlChange(RuiPreset.joystick.cc_number[s],
-                              joystick->ccXPlusValue,
-                              RuiPreset.joystick.cc_channel[s]);
-            state.ccJoystick[s] = joystick->ccXPlusValue;
-          }
-        } else if (s == 1) {
-          if (joystick->ccXMinusValue != state.ccJoystick[s]) {
-            sendControlChange(RuiPreset.joystick.cc_number[s],
-                              joystick->ccXMinusValue,
-                              RuiPreset.joystick.cc_channel[s]);
-            state.ccJoystick[s] = joystick->ccXMinusValue;
-          }
-        } else if (s == 2) {
-          if (joystick->ccYPlusValue != state.ccJoystick[s]) {
-            sendControlChange(RuiPreset.joystick.cc_number[s],
-                              joystick->ccYPlusValue,
-                              RuiPreset.joystick.cc_channel[s]);
-            state.ccJoystick[s] = joystick->ccYPlusValue;
-          }
-        } else if (s == 3) {
-          if (joystick->ccYMinusValue != state.ccJoystick[s]) {
-            sendControlChange(RuiPreset.joystick.cc_number[s],
-                              joystick->ccYMinusValue,
-                              RuiPreset.joystick.cc_channel[s]);
-            state.ccJoystick[s] = joystick->ccYMinusValue;
-          }
-        }
-      } else if (RuiPreset.joystick.joystick_mode[s] == 2) {
-        // Pitch Bend Mode
-        if (s == 0 || s == 1) {
-          if (joystick->xPitchBendValue != 0 &&
-              joystick->xPitchBendValue != state.joystickXPitchBend) {
-            sendPitchBend(joystick->xPitchBendValue,
-                          RuiPreset.joystick.channel[s]);
-            state.joystickXPitchBend = joystick->xPitchBendValue;
-          }
-        } else if (s == 3 || s == 4) {
-          if (joystick->yPitchBendValue != 0 &&
-              joystick->yPitchBendValue != state.joystickYPitchBend) {
-            sendPitchBend(joystick->yPitchBendValue,
-                          RuiPreset.joystick.channel[s]);
-            state.joystickYPitchBend = joystick->yPitchBendValue;
-          }
-        }
-      }
-    }
+    // if (RuiPreset.joystick.joystick_mode[s] > 0) {
+    //   if (RuiPreset.joystick.joystick_mode[s] == 1) {
+    //     // CC Mode
+    //     if (s == 0) {
+    //       if (joystick->ccXPlusValue != state.ccJoystick[s]) {
+    //         sendControlChange(RuiPreset.joystick.cc_number[s],
+    //                           joystick->ccXPlusValue,
+    //                           RuiPreset.joystick.cc_channel[s]);
+    //         state.ccJoystick[s] = joystick->ccXPlusValue;
+    //       }
+    //     } else if (s == 1) {
+    //       if (joystick->ccXMinusValue != state.ccJoystick[s]) {
+    //         sendControlChange(RuiPreset.joystick.cc_number[s],
+    //                           joystick->ccXMinusValue,
+    //                           RuiPreset.joystick.cc_channel[s]);
+    //         state.ccJoystick[s] = joystick->ccXMinusValue;
+    //       }
+    //     } else if (s == 2) {
+    //       if (joystick->ccYPlusValue != state.ccJoystick[s]) {
+    //         sendControlChange(RuiPreset.joystick.cc_number[s],
+    //                           joystick->ccYPlusValue,
+    //                           RuiPreset.joystick.cc_channel[s]);
+    //         state.ccJoystick[s] = joystick->ccYPlusValue;
+    //       }
+    //     } else if (s == 3) {
+    //       if (joystick->ccYMinusValue != state.ccJoystick[s]) {
+    //         sendControlChange(RuiPreset.joystick.cc_number[s],
+    //                           joystick->ccYMinusValue,
+    //                           RuiPreset.joystick.cc_channel[s]);
+    //         state.ccJoystick[s] = joystick->ccYMinusValue;
+    //       }
+    //     }
+    //   } else if (RuiPreset.joystick.joystick_mode[s] == 2) {
+    //     // Pitch Bend Mode
+    //     if (s == 0 || s == 1) {
+    //       if (joystick->xPitchBendValue != 0 &&
+    //           joystick->xPitchBendValue != state.joystickXPitchBend) {
+    //         sendPitchBend(joystick->xPitchBendValue,
+    //                       RuiPreset.joystick.channel[s]);
+    //         state.joystickXPitchBend = joystick->xPitchBendValue;
+    //       }
+    //     } else if (s == 3 || s == 4) {
+    //       if (joystick->yPitchBendValue != 0 &&
+    //           joystick->yPitchBendValue != state.joystickYPitchBend) {
+    //         sendPitchBend(joystick->yPitchBendValue,
+    //                       RuiPreset.joystick.channel[s]);
+    //         state.joystickYPitchBend = joystick->yPitchBendValue;
+    //       }
+    //     }
+    //   }
+    // }
   }
 }
 
