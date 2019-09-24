@@ -274,14 +274,14 @@ void loop() {
           display.print(RuiMIDIUtil::toNoteName(showNote));
         }
         // Display the raw string sensor values
-        display.setCursor(18, k * 8);
+        display.setCursor(32, k * 8);
         display.print("S");
         display.print(RuiBody.sensors.stringsV[i]);
         // display.print(RuiMIDI::strings[i]->rawValue);
         // Display the joystick CC values
-        display.setCursor(32, k * 8);
-        display.print("P");
-        display.print(RuiBody.sensors.padsV[i]);
+        display.setCursor(64, k * 8);
+        display.print("F");
+        display.print(RuiMIDI.faders[i]->ccValue);
 
         k--;
       }

@@ -18,7 +18,7 @@ struct SensorCalibration {
   int16_t padsChangeThresh[NN] = {5, 5, 5, 5};
   int16_t fadersInputMin[NN] = {0, 0, 0, 0};
   int16_t fadersInputMax[NN] = {1024, 1024, 1024, 1024};
-  int16_t fadersChangeThresh[NN] = {5, 5, 5, 5};
+  int16_t fadersChangeThresh[NN] = {15, 15, 15, 15};
   int16_t joystickInputMin = 0;
   int16_t joystickInputMax = 1024;
   int16_t joystickXMiddle = 512;
